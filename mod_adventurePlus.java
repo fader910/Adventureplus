@@ -2,8 +2,11 @@ package adventurePlus;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.BaseMod;
+import net.minecraft.src.KeyBinding;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import adventurePlus.Core;
+import adventurePlus.gui.GuiInformation;
 
 public class mod_adventurePlus extends BaseMod {
 	private World lastWorld = null;
@@ -15,8 +18,15 @@ public class mod_adventurePlus extends BaseMod {
 
 	@Override
 	public void load() {
-		Core.init();
-		
+		Core.init(this);
+		ModLoader.setInGameHook(this, true, true);
+	}
+	
+	@Override
+	public void keyboardEvent(KeyBinding event)
+	{
+		if(event == Core.keyBindings.get(0) && Core.mc.theWorld != null)
+			Core.mc.displayGuiScreen(new GuiInformation());
 	}
 	
 	@Override

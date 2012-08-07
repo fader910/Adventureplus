@@ -14,7 +14,7 @@ public class Stats {
 		money += _money;
 		
 		String worldName = ModLoader.getMinecraftInstance().theWorld.getWorldInfo().getWorldName();
-		Core.config.itemProperties.put("money." + worldName, Core.getProperty("money." + worldName, Integer.toString(warning)));
+		Core.config.generalProperties.put("money." + worldName, Core.getProperty("money." + worldName, Integer.toString(warning)));
 		Core.config.save();
 	}
 
@@ -29,7 +29,7 @@ public class Stats {
 			warning += _warning;
 			
 			String worldName = ModLoader.getMinecraftInstance().theWorld.getWorldInfo().getWorldName();
-			Core.config.itemProperties.put("warning." + worldName, Core.getProperty("warning." + worldName, Integer.toString(warning)));
+			Core.config.generalProperties.put("warning." + worldName, Core.getProperty("warning." + worldName, Integer.toString(warning)));
 			Core.config.save();
 		}
 	}

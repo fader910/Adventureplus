@@ -5,14 +5,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import adventurePlus.objects.blockEmpty;
 import adventurePlus.objects.itemEmpty;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.BaseMod;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
+import net.minecraft.src.KeyBinding;
 import net.minecraft.src.Material;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.forge.Configuration;
@@ -22,12 +25,19 @@ import net.minecraft.src.forge.Property;
 
 public class Core {
 	public static String terrainPath = "/adventurePlus/resources/terrain.png", itemsPath = "/adventurePlus/resources/items.png";
+	public static ArrayList<KeyBinding> keyBindings = new ArrayList<KeyBinding>();
 	public static Configuration config;
 	private static String log = "";	
+	private static BaseMod mod;
+	public static Minecraft mc;
 	
 	// Loading the mod
-	public static void init() {
+	public static void init(BaseMod _mod) {
 		log("loading adventurePlus...");
+		
+		// Loading handy stuff
+		mc = ModLoader.getMinecraftInstance();
+		mod = _mod;
 		
 		// Checking Files and load config
 		File folder = new File(Minecraft.getMinecraftDir(), "/adventurePlus");
@@ -46,6 +56,8 @@ public class Core {
 		
 		// Loading blocks, items and entities
 		
+		// Loading keys
+		Core.addKey("information", 50, "Show Information");
 		
 		log("adventurePlus has been loaded!");
 	}
@@ -83,6 +95,14 @@ public class Core {
 				e.printStackTrace();
 			}
 	    }
+	}
+	
+	// Some handy commands
+	public static void addKey(String name, int standard, String value) {
+		KeyBinding key = new KeyBinding("adventureplus." + name, standard);
+		ModLoader.registerKey(mod, key, false);
+        ModLoader.addLocalization(key.keyDescription, value);
+        keyBindings.add(key);
 	}
 	
 	// Loading Items and blocks
