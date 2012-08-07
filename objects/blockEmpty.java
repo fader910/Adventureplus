@@ -28,25 +28,4 @@ public class blockEmpty extends Block implements ITextureProvider {
     {
         itemList.add(new ItemStack(this));
     }
-	
-	public blockEmpty setName(String value) {
-		ModLoader.addName(this, value);
-		return this;
-	}
-	
-	public blockEmpty setHardness(float par1)
-    {
-        this.blockHardness = par1;
-        if (this.blockResistance < par1 * 5.0F)
-        {
-            this.blockResistance = par1 * 5.0F;
-        }
-        return this;
-    }
-	
-	public blockEmpty setTickRandomly(boolean par1)
-    {
-        this.needsRandomTick = par1;
-        return this;
-    }
 }

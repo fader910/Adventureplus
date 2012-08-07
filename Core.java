@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import adventurePlus.objects.blockEmpty;
+import adventurePlus.objects.blockSwordWorkbench;
 import adventurePlus.objects.itemEmpty;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.BaseMod;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.KeyBinding;
 import net.minecraft.src.Material;
 import net.minecraft.src.ModLoader;
@@ -55,6 +57,12 @@ public class Core {
 		MinecraftForgeClient.preloadTexture(itemsPath);
 		
 		// Loading blocks, items and entities
+		blockSwordWorkbench swordBench = new blockSwordWorkbench("swordbench", 200, 0, Material.wood);
+		ModLoader.addName(swordBench, "Sword Workbench");
+		ModLoader.registerBlock(swordBench);
+		
+		// Loading recipes
+		ModLoader.addRecipe(new ItemStack(swordBench), new Object[] {"PPP", "PSP", "PPP", 'P', Block.planks, 'S', Item.swordWood});
 		
 		// Loading keys
 		Core.addKey("information", 50, "Show Information");
@@ -107,50 +115,47 @@ public class Core {
 	
 	// Loading Items and blocks
 	// Always use this to load a block, for a custom ID in the config
-	public static int getBlockID() {
-		for(int i = 1; i < Block.blocksList.length; i++)
-		{
-			if(Block.blocksList[i] == null)
-				return i;
-		}
-		return 0;
-	}
-	
-	public static int getItemID() {
-		for(int i = 1; i < Item.itemsList.length; i++)
-		{
-			if(Item.itemsList[i] == null)
-				return i;
-		}
-		return 0;
-	}
-	
-	public static blockEmpty loadBlock(String name, int texture, Material material) {
+	public static int getBlockID(String name) {
 		int id = 0;
-		if(config.blockProperties.containsKey(name)) {
-			id = config.blockProperties.get(name).getInt();
-		} else {
-			id = getBlockID();
+		if(config.blockProperties.containsKey(name))
+			id = config.blockProperties.get(name).getInt();	
+		
+		if(id == 0)
+		{
+			for(int i = 1; i < Block.blocksList.length; i++)
+			{
+				if(Block.blocksList[i] == null)
+				{
+					id = i;
+					break;
+				}
+			}
+			
 			config.blockProperties.put(name, getProperty(name, Integer.toString(id)));
 			config.save();
 		}
-		blockEmpty block = new blockEmpty(name, id, texture, material);
-		ModLoader.registerBlock(block);
-		log("Block " + name + " with ID " + id + " has been loaded.");
-		return block;
+		return id;
 	}
 	
-	public static itemEmpty loadItem(String name, int texture) {
+	public static int getItemID(String name) {
 		int id = 0;
-		if(config.itemProperties.containsKey(name)) {
+		if(config.itemProperties.containsKey(name))
 			id = config.itemProperties.get(name).getInt();
-		} else {
-			id = getItemID();
+		
+		if(id == 0)
+		{
+			for(int i = 1; i < Item.itemsList.length; i++)
+			{
+				if(Item.itemsList[i] == null)
+				{
+					id = i;
+					break;
+				}
+			}
+			
 			config.itemProperties.put(name, getProperty(name, Integer.toString(id)));
 			config.save();
 		}
-		itemEmpty item = new itemEmpty(name, id, texture);
-		log("Item " + name + " with ID " + id + " has been loaded.");
-		return item;
+		return 0;
 	}
 }

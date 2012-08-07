@@ -45,6 +45,7 @@ public class GuiInformation extends GuiScreen{
         }
     }
     
+    @Override
     public void drawDefaultBackground()
     {
         super.drawDefaultBackground();
@@ -56,6 +57,7 @@ public class GuiInformation extends GuiScreen{
         drawTexturedModalRect(j, k, 0, 0, 248, 166);
     }
     
+    @Override
     public void drawScreen(int par1, int par2, float par3)
     {
         drawDefaultBackground();
@@ -69,5 +71,11 @@ public class GuiInformation extends GuiScreen{
         fontRenderer.drawString("You can get money with trade or killing people.", i, k + 44, 0xCCCCCC);
         fontRenderer.drawString("You get warning levels with killing people.", i, k + 54, 0xCCCCCC);
         super.drawScreen(par1, par2, par3);
+    }
+    
+    @Override
+	public boolean doesGuiPauseGame()
+    {
+        return false;
     }
 }
