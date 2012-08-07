@@ -20,12 +20,13 @@ import net.minecraft.src.forge.Property;
 public class Core {
 	public static String terrainPath = "/adventurePlus/resources/terrain.png", itemsPath = "/adventurePlus/resources/items.png";
 	public static Configuration config;
-	private static String log = "";
+	private static String log = "";	
 	
 	// Loading the mod
 	public static void init() {
 		log("loading adventurePlus...");
 		
+		// Checking Files and load config
 		File folder = new File(Minecraft.getMinecraftDir(), "/adventurePlus");
 		if(!folder.exists())
 			folder.mkdir();
@@ -36,11 +37,13 @@ public class Core {
 		config = new Configuration(file);
 		config.load();
 		
+		// Loading the textures
 		MinecraftForgeClient.preloadTexture(terrainPath);
 		MinecraftForgeClient.preloadTexture(itemsPath);
 		
-		Block newMelon = Core.loadBlock("newMelon", 1, Material.glass).setName("Omnom");
-				
+		// Loading blocks, items and entities
+		
+		
 		log("adventurePlus has been loaded!");
 	}
 	
