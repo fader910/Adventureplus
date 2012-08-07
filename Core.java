@@ -8,9 +8,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import adventurePlus.objects.blockEmpty;
-import adventurePlus.objects.blockSwordWorkbench;
-import adventurePlus.objects.itemEmpty;
+import adventurePlus.objects.*;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.BaseMod;
@@ -22,8 +20,10 @@ import net.minecraft.src.Material;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.forge.Configuration;
 import net.minecraft.src.forge.ITextureProvider;
+import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.forge.MinecraftForgeClient;
 import net.minecraft.src.forge.Property;
+import net.minecraft.src.forge.EnumHelper;
 
 public class Core {
 	public static String terrainPath = "/adventurePlus/resources/terrain.png", itemsPath = "/adventurePlus/resources/items.png";
@@ -57,9 +57,8 @@ public class Core {
 		MinecraftForgeClient.preloadTexture(itemsPath);
 		
 		// Loading blocks, items and entities
-		blockSwordWorkbench swordBench = new blockSwordWorkbench("swordbench", 200, 0, Material.wood);
-		ModLoader.addName(swordBench, "Sword Workbench");
-		ModLoader.registerBlock(swordBench);
+		blockSwordWorkbench swordBench = new blockSwordWorkbench("swordbench", getBlockID("swordbench"), 0, Material.wood); 															ModLoader.addName(swordBench, "Sword Workbench"); 				ModLoader.registerBlock(swordBench);
+		itemObsidianSword obsidianSword = new itemObsidianSword("obsidiansword", getItemID("obsidiansword"), 0, EnumHelper.addToolMaterial("OBSIDIAN", 3, 2000, 7F, 3, 10)); 			ModLoader.addName(obsidianSword, "Obsidian Sword"); 			MinecraftForge.setToolClass(obsidianSword, "sword", 3);
 		
 		// Loading recipes
 		ModLoader.addRecipe(new ItemStack(swordBench), new Object[] {"PPP", "PSP", "PPP", 'P', Block.planks, 'S', Item.swordWood});
@@ -134,9 +133,12 @@ public class Core {
 			config.blockProperties.put(name, getProperty(name, Integer.toString(id)));
 			config.save();
 		}
+		
+		log("Block ID " + id + " loaded for " + name);
 		return id;
 	}
 	
+	private static int startID = 200;
 	public static int getItemID(String name) {
 		int id = 0;
 		if(config.itemProperties.containsKey(name))
@@ -144,18 +146,25 @@ public class Core {
 		
 		if(id == 0)
 		{
-			for(int i = 1; i < Item.itemsList.length; i++)
+			if(startID == 200 || Item.itemsList[startID] != null)
 			{
-				if(Item.itemsList[i] == null)
+				for(int i = startID; i < Item.itemsList.length; i++)
 				{
-					id = i;
-					break;
+					if(Item.itemsList[i] == null)
+					{
+						startID = i;
+						break;
+					}
 				}
 			}
+			id = startID;
+			startID++;
 			
 			config.itemProperties.put(name, getProperty(name, Integer.toString(id)));
 			config.save();
 		}
-		return 0;
+		
+		log("Item ID " + id + " loaded for " + name);
+		return id;
 	}
 }

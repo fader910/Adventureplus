@@ -19,7 +19,7 @@ public class itemEmpty extends Item implements ITextureProvider {
 
 	public String getTextureFile()
     {
-		return Core.terrainPath;
+		return Core.itemsPath;
     }
 	
 	public void addCreativeItems(ArrayList itemList)

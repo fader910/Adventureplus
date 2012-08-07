@@ -1,7 +1,7 @@
 package adventurePlus.objects;
 
 import adventurePlus.Core;
-import adventurePlus.gui.GuiInformation;
+import adventurePlus.gui.GuiSword;
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Material;
@@ -33,7 +33,7 @@ public class blockSwordWorkbench extends blockEmpty {
         }
         else
         {
-        	Core.mc.displayGuiScreen(new GuiInformation());
+        	Core.mc.displayGuiScreen(new GuiSword());
             return true;
         }
     }
