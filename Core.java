@@ -7,6 +7,9 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Calendar;
 
+import adventurePlus.objects.blockEmpty;
+import adventurePlus.objects.itemEmpty;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;

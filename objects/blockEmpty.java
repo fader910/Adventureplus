@@ -1,7 +1,9 @@
-package adventurePlus;
+package adventurePlus.objects;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import adventurePlus.Core;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
@@ -12,7 +14,7 @@ import net.minecraft.src.forge.ITextureProvider;
 
 public class blockEmpty extends Block implements ITextureProvider {
 	
-	protected blockEmpty(String par1, int par2, int par3, Material par4Material) {
+	public blockEmpty(String par1, int par2, int par3, Material par4Material) {
 		super(par2, par3, par4Material);
 		this.setBlockName(par1);
 	}

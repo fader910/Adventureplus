@@ -1,6 +1,8 @@
-package adventurePlus;
+package adventurePlus.objects;
 
 import java.util.ArrayList;
+
+import adventurePlus.Core;
 
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -9,7 +11,7 @@ import net.minecraft.src.forge.ITextureProvider;
 public class itemEmpty extends Item implements ITextureProvider {
 	private boolean hasEffect = false;
 	
-	protected itemEmpty(String par1, int par2, int texture) {
+	public itemEmpty(String par1, int par2, int texture) {
 		super(par2);
 		this.iconIndex = texture;
 		this.setItemName(par1);
