@@ -1,0 +1,19 @@
+[
+{
+  "modid" : "mod_adventurePlus",
+  "name" : "Adventure+",
+  "version" : "Snapshot",
+  "url" : "https://github.com/fader910/Adventureplus.git",
+  "credits" : "Adventure+ copyright 2012-2013",
+  "authors": [
+    "Gerard",
+    "Farhad"
+  ],
+  "description": "Adventure+ is a Minecraft mod which adds more adventure to the game. Earn money.. or get money by killing people. Its all your story.",
+  "logoFile" : "/adventureplus_logo.png",
+  "updateUrl" : "https://github.com/fader910/Adventureplus.git",
+  "parent" : "",
+  "screenshots": [
+  ]
+}
+]
