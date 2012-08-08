@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.src.BaseMod;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
+import net.minecraft.src.ItemCloth;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.KeyBinding;
 import net.minecraft.src.Material;
@@ -58,10 +59,15 @@ public class Core {
 		
 		// Loading blocks, items and entities
 		blockSwordWorkbench swordBench = new blockSwordWorkbench("swordbench", getBlockID("swordbench"), 0, Material.wood); 															ModLoader.addName(swordBench, "Sword Workbench"); 				ModLoader.registerBlock(swordBench);
+		blockGrindstone grindStone = new blockGrindstone("grindstone", getBlockID("grindstone"), 0, Material.wood, tileEntityGrindstone.class); 										ModLoader.addName(grindStone, "Grindstone"); 					ModLoader.registerBlock(grindStone);						Item.itemsList[grindStone.blockID] = (new itemBlock("grindstone", getItemID("grindstone"), 1, grindStone.blockID));
 		itemObsidianSword obsidianSword = new itemObsidianSword("obsidiansword", getItemID("obsidiansword"), 0, EnumHelper.addToolMaterial("OBSIDIAN", 3, 2000, 7F, 3, 10)); 			ModLoader.addName(obsidianSword, "Obsidian Sword"); 			MinecraftForge.setToolClass(obsidianSword, "sword", 3);
+		
+		tileEntityGrindstoneRenderer teGrindstone = new tileEntityGrindstoneRenderer();
+		ModLoader.registerTileEntity(tileEntityGrindstone.class, "tilegrindstone", teGrindstone);
 		
 		// Loading recipes
 		ModLoader.addRecipe(new ItemStack(swordBench), new Object[] {"PPP", "PSP", "PPP", 'P', Block.planks, 'S', Item.swordWood});
+		ModLoader.addShapelessRecipe(new ItemStack(Item.itemsList[grindStone.blockID]), new Object[] { Block.dirt });
 		
 		// Loading keys
 		Core.addKey("information", 50, "Show Information");
